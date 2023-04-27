@@ -2,6 +2,7 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:mob2/UI/Widjets/CustomNavBar.dart';
 import 'package:mob2/UI/Widjets/PaymentRow.dart';
 class HistoryScreen extends StatefulWidget {
   const HistoryScreen({Key? key}) : super(key: key);
@@ -17,7 +18,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
 
-
+      bottomNavigationBar: CostumNavBar(index:1),
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -40,8 +41,8 @@ class _HistoryScreenState extends State<HistoryScreen> {
             ),
             Column(
               children: [
-                PaymentRow(image: "lib/UI/assets/Images/pay.png", title: "Payment", date: "12.03.2023", amount: 60,istTime: false,),
-                PaymentRow(image: "lib/UI/assets/Images/pay.png", title: "Payment", date: "12.03.2023", amount: 60,istTime: false,),
+                PaymentRow(image: "lib/UI/assets/Images/pay.png", title: "Payment", date: "12.03.2023", amount: "60",istTime: false,),
+                PaymentRow(image: "lib/UI/assets/Images/pay.png", title: "Payment", date: "12.03.2023", amount: "60",istTime: false,),
               ],
             ),
             Container(
@@ -51,7 +52,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
             ),
             Column(
               children: [
-                PaymentRow(image: "lib/UI/assets/Images/pay.png", title: "Payment", date: "12.03.2023", amount: 60,istTime: false,),
+                PaymentRow(image: "lib/UI/assets/Images/pay.png", title: "Payment", date: "12.03.2023", amount: "60",istTime: false,),
               ],
             ),
             Container(
@@ -61,7 +62,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
             ),
             Column(
               children: [
-                PaymentRow(image: "lib/UI/assets/Images/pay.png", title: "Payment", date: "12.03.2023", amount: 60,istTime: false,),
+                PaymentRow(image: "lib/UI/assets/Images/pay.png", title: "Payment", date: "12.03.2023", amount: "60",istTime: false,),
               ],
             ),
           ],

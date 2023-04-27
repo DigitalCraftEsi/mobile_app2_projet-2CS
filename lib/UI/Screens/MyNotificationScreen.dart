@@ -1,5 +1,6 @@
 
 import 'package:flutter/material.dart';
+import 'package:mob2/UI/Widjets/CustomNavBar.dart';
 import 'package:mob2/UI/Widjets/PaymentRow.dart';
 class MyNotificationScreen extends StatelessWidget {
   const MyNotificationScreen({Key? key}) : super(key: key);
@@ -8,7 +9,7 @@ class MyNotificationScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
 
-
+     bottomNavigationBar: CostumNavBar(index:0),
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -31,8 +32,8 @@ class MyNotificationScreen extends StatelessWidget {
             ),
             Column(
               children: [
-                PaymentRow(image: "lib/UI/assets/Images/pay.png", title: "Payment Restored", date: "12.03.2023", amount: 60,istTime: true,),
-                PaymentRow(image: "lib/UI/assets/Images/pay.png", title: "Payment Restored", date: "12.03.2023", amount: 60,istTime: true,),
+                PaymentRow(image: "lib/UI/assets/Images/pay.png", title: "Payment Restored", date: "12.03.2023", amount: "10:45",istTime: true,),
+                PaymentRow(image: "lib/UI/assets/Images/pay.png", title: "Payment Restored", date: "12.03.2023", amount: "10:45",istTime: true,),
               ],
             ),
             Container(
@@ -42,7 +43,7 @@ class MyNotificationScreen extends StatelessWidget {
             ),
             Column(
               children: [
-                PaymentRow(image: "lib/UI/assets/Images/pay.png", title: "Payment Restored", date: "12.03.2023", amount: 60,istTime: true,),
+                PaymentRow(image: "lib/UI/assets/Images/pay.png", title: "Payment Restored", date: "12.03.2023", amount: "10:45",istTime: true,),
               ],
             ),
             Container(
@@ -52,7 +53,7 @@ class MyNotificationScreen extends StatelessWidget {
             ),
             Column(
               children: [
-                PaymentRow(image: "lib/UI/assets/Images/pay.png", title: "Payment Restored", date: "12.03.2023", amount: 60,istTime: true,),
+                PaymentRow(image: "lib/UI/assets/Images/pay.png", title: "Payment Restored", date: "12.03.2023", amount: "10:45",istTime: true,),
               ],
             ),
           ],

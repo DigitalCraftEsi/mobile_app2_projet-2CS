@@ -5,7 +5,7 @@ class PaymentRow extends StatelessWidget {
   final String image;
   final String title;
   final String date;
-  final int amount;
+  final String amount;
   final bool istTime;
 
   @override
@@ -40,7 +40,8 @@ class PaymentRow extends StatelessWidget {
           Expanded(
             child: Container(
               alignment: Alignment.bottomRight,
-              child: Text("- $amount DA",style: TextStyle(fontWeight: FontWeight.w600,fontSize: 12),),
+              child: istTime?Text("$amount",style: TextStyle(fontWeight: FontWeight.w600,fontSize: 12),):
+    Text("- $amount DA",style: TextStyle(fontWeight: FontWeight.w600,fontSize: 12)),
             ),
           ),
         ],
