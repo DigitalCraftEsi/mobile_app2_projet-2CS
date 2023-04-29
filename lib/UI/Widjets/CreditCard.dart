@@ -58,7 +58,7 @@ class CreditCard extends StatelessWidget {
             SizedBox(height: 10,),
             Row(
               children: [
-                Text("$cardNumber",style: TextStyle(fontWeight: FontWeight.w400,color: Colors.white,fontSize: 17),),
+                Text("${cardNumber.substring(0, 4)} ${cardNumber.substring(4, 8)} ${cardNumber.substring(8, 12)} ${cardNumber.substring(12, 16)}",style: TextStyle(fontWeight: FontWeight.w400,color: Colors.white,fontSize: 17),),
               ],
             ),
             SizedBox(height: 14,),

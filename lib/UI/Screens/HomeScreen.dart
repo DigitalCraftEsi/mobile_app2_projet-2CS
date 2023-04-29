@@ -2,6 +2,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:mob2/Bloc/CreditCardsBloc.dart';
+import 'package:mob2/Bloc/UserInfosBloc.dart';
 import 'package:mob2/Data/Models/CreditCard.dart';
 import 'package:mob2/UI/Screens/MyNotificationScreen.dart';
 import 'package:mob2/UI/Widjets/CreditCard.dart';
@@ -28,11 +29,39 @@ class _HomeScreenState extends State<HomeScreen> {
   int currentCard=0;
   List<creditCard> _listOfCards=[];
   List<dynamic> ListOfMap=[];
+  Map<String,dynamic>  userInfos={};
   bool isloading2=true;
+  bool isloading3=true;
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
+    Provider.of<UserInfosBloc>(context,listen: false).getUserInfos().then((value){
+      if(mounted){
+        setState(() {
+          isloading3=false;
+        }
+        );}
+        userInfos=Provider.of<UserInfosBloc>(context,listen: false).data;
+      if(userInfos["statusCode"]!=200 ){
+        showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return AlertDialog(
+              title: Text("${userInfos["message"]}"),
+              actions: <Widget>[
+                RaisedButton(
+                  child:  Text("OK"),
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                )
+              ],
+            );
+          },
+        );
+      }
+    }) ;
     Provider.of<CreditCardsBloc>(context,listen: false).GetCreditCards().then((value){
       if(mounted){
       setState(() {
@@ -80,7 +109,7 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
 
       bottomNavigationBar: CostumNavBar(index: 0,),
-      body: isloading2?Center(child: CircularProgressIndicator(color: Color.fromRGBO(1, 113, 75, 1),)):SingleChildScrollView(
+      body: (isloading2||isloading3)?Center(child: CircularProgressIndicator(color: Color.fromRGBO(1, 113, 75, 1),)):SingleChildScrollView(
       child: Column(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
@@ -118,15 +147,14 @@ class _HomeScreenState extends State<HomeScreen> {
 
 
                       ),
-                        child: Image.asset("lib/UI/assets/Images/User.jpg",fit: BoxFit.fill,),
+                       child:  userInfos["data"]["picture"]==null?Image.asset("lib/UI/assets/Images/user.png",fit: BoxFit.fill,):Image.network("${userInfos["data"]["picture"]}",fit: BoxFit.fill,),
                   ),
                   ),
                   SizedBox(width: 10,),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
-
                     children: [
-                      Text("Hi Jane Doe",style: TextStyle(fontWeight: FontWeight.w600,color: Color.fromRGBO(0, 98, 59, 1),fontSize: 14),),
+                      Text("Hi ${userInfos["data"]["prenomConsommateur"] } ${userInfos["data"]["nomConsommateur"]}",style: TextStyle(fontWeight: FontWeight.w600,color: Color.fromRGBO(0, 98, 59, 1),fontSize: 14),),
                       Text("Welcome back!",style: TextStyle(fontWeight: FontWeight.w700,color: Colors.black,fontSize: 16),)
                     ],
                   ),

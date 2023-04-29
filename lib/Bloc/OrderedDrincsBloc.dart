@@ -12,6 +12,7 @@ import 'package:mob2/UI/Widjets/CreditCard.dart';
 class OrderedDrinksBloc extends ChangeNotifier {
   Map<String,dynamic> _orderedDrinks = {};
   Map<String,dynamic> _paymentData = {};
+  int total=0;
   Map<String,dynamic> get paymentData => _paymentData;
   Map<String,dynamic> get orderedDrinks => _orderedDrinks;
 
@@ -40,6 +41,21 @@ class OrderedDrinksBloc extends ChangeNotifier {
   }
   Future<void> DoPayment(Map<String,dynamic> data) async {
     _paymentData= await PaymentService.DoPayment(data);
+    notifyListeners();
+  }
+  Future<void> CalculateTotalPrice(List<Map<String,int>> data) async {
+    print("lenth ${data.length}");
+    int temp_total=0;
+    for(int i=0;i<data.length;i++) {
+      Map<String,dynamic> Data= await PaymentService.GetDrinkInfos(data[i]["idBoisson"]!);
+      print(Data);
+      print("i $i");
+      int tarif = int.tryParse(Data["data"]["tarif"].toString()) ?? 0;
+      print("tarif ${Data["data"]["tarif"]}");
+      int quantite = int.tryParse(Data["data"]["Quantite"].toString()) ?? 0;
+      temp_total += tarif * quantite;
+    }
+    total=temp_total;
     notifyListeners();
   }
 

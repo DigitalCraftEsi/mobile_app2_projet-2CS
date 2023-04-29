@@ -1,8 +1,13 @@
+import 'dart:convert';
+
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:mob2/Bloc/CreditCardsBloc.dart';
 import 'package:mob2/Bloc/DistributeurInfoBloc.dart';
 import 'package:mob2/Bloc/OrderedDrincsBloc.dart';
+import 'package:mob2/Bloc/UserInfosBloc.dart';
 import 'package:mob2/UI/Screens/HistoryScreen.dart';
 import 'package:mob2/UI/Screens/HomeScreen.dart';
 import 'package:mob2/UI/Screens/LoginScreen.dart';
@@ -23,6 +28,7 @@ Future<void> main() async {
   final cookie = await storage.read(key: 'cookie');
   runApp(MultiProvider(child:MyApp(Cookie: cookie,),
     providers: [
+      ChangeNotifierProvider<UserInfosBloc>.value(value: UserInfosBloc()),
       ChangeNotifierProvider<CreditCardsBloc>.value(value: CreditCardsBloc()),
       ChangeNotifierProvider<DistributeurinfoBloc>.value(value: DistributeurinfoBloc()),
       ChangeNotifierProvider<OrderedDrinksBloc>.value(value: OrderedDrinksBloc()),
@@ -38,14 +44,23 @@ class MyApp extends StatelessWidget {
   const MyApp({Key? key, required this.Cookie}) : super(key: key);
   @override
   Widget build(BuildContext context) {
+    //final expires =Cookie!=null?RegExp('Expires=([^;]*)').firstMatch(Cookie)?.group(1):null;
 
+    // Parse the expiration date into a DateTime object
+    //final expirationDate = expires != null ? HttpDate.parse(expires) : null;
+    //print(expires);
+    //print(expirationDate);
+    //print(DateTime.now().isAfter(expirationDate!));
+    //print(expirationDate != null);
     return MaterialApp(
       title: 'mob2',
       theme: ThemeData(
 
         fontFamily: "Poppins",
       ),
-      home: Cookie==null?Login():HomeScreen(),
+      home://(expirationDate != null && DateTime.now().isAfter(expirationDate))?Login():HomeScreen(),
+      //(Cookie==null ||((jsonDecode(Cookie).expires)== null || DateTime.now().isAfter(jsonDecode(Cookie).expires)))?Login():HomeScreen(),
+      Cookie==null?Login():HomeScreen(),
       debugShowCheckedModeBanner: false,
     );
   }

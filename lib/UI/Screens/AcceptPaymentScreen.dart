@@ -17,11 +17,23 @@ class AcceptPaymentScreen extends StatefulWidget {
 
 class _AcceptPaymentScreenState extends State<AcceptPaymentScreen> {
   bool isloading=true;
+  bool isloading2=true;
   Map<String,dynamic>  data={};
+  int total=0;
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
+    /*Provider.of<OrderedDrinksBloc>(context,listen: false).CalculateTotalPrice([{"idBoisson":1,"Quantite":3}]).then((value){
+      if(mounted){
+        setState(() {
+          isloading2=false;
+        });
+        total=Provider.of<OrderedDrinksBloc>(context,listen: false).total;
+        print(total);
+      }
+    });*/
+
     int _idDistributeur=Provider.of<OrderedDrinksBloc>(context,listen: false).orderedDrinks["idDistributeur"];
     Provider.of<DistributeurinfoBloc>(context,listen: false).GetDistributeurInfos(_idDistributeur).then((value){
       if(mounted){

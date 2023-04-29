@@ -25,6 +25,26 @@ class PaymentService{
       return {};
     }
   }
+  static Future<Map<String, dynamic>> GetDrinkInfos(int idBoisson) async {
+
+    try {
+      final storage = FlutterSecureStorage();
+      final cookie = await storage.read(key: 'cookie');
+      if (cookie == null) {
+        return {};
+      }
+      final res = await http.get(
+        "https://smartbevdb-sil-rhap.onrender.com/beverage/$idBoisson",
+        headers: {'Cookie': cookie},
+      );
+      final data = json.decode(res.body) as Map<String, dynamic>;
+      return data;
+    }
+    catch (e) {
+      print(e.toString());
+      return {};
+    }
+  }
   static Future<Map<String, dynamic>> GetDistributeurInfos(int idDistributeur) async {
 
     try {
@@ -75,7 +95,8 @@ class PaymentService{
     try {
       //just to avoid cast error
       Map<String,dynamic> temp=orderedDrinks;
-      Map<String,String> card=temp["card"];
+      Map<String,dynamic> card=temp["card"];
+      temp.update("boissons", (value) => [{"idBoisson":2,"Quantite":3}]);
      // card.update("cardNumber", (value) => "")
 
       final storage = FlutterSecureStorage();

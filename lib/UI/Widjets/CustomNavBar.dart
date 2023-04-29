@@ -8,7 +8,7 @@ import 'package:mob2/UI/Screens/ScanQrCodeScreen.dart';
 class CostumNavBar extends StatelessWidget {
   CostumNavBar({Key? key, required this.index}) : super(key: key);
   final int index;
-  List<Widget> _listOfScreens=[HomeScreen(),HistoryScreen(),ScanQrCodeScreen(),ProfileScreen(image: "", full_name: "Belhout ahmed")];
+  List<Widget> _listOfScreens=[HomeScreen(),HistoryScreen(),ScanQrCodeScreen(),ProfileScreen()];
   @override
   Widget build(BuildContext context) {
     return   Container(

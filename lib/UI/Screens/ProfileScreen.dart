@@ -1,25 +1,27 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:mob2/Bloc/UserInfosBloc.dart';
 import 'package:mob2/UI/Screens/MyCardsScreen.dart';
 import 'package:mob2/UI/Screens/MyInfoScreen.dart';
 import 'package:mob2/UI/Screens/SettingsScreen.dart';
 import 'package:mob2/UI/Widjets/CustomNavBar.dart';
+import 'package:provider/provider.dart';
 
 
 
 class ProfileScreen extends StatefulWidget {
-  const ProfileScreen({Key? key, required this.image, required this.full_name}) : super(key: key);
-  final String image;
-  final String full_name;
+  const ProfileScreen({Key? key}) : super(key: key);
 
   @override
   _ProfileScreenState createState() => _ProfileScreenState();
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
+
   @override
   Widget build(BuildContext context) {
+    Map<String,dynamic> userInfos=Provider.of<UserInfosBloc>(context,listen: false).data;
     return Scaffold(
       bottomNavigationBar: CostumNavBar(index: 3,),
       appBar: AppBar(
@@ -44,14 +46,28 @@ class _ProfileScreenState extends State<ProfileScreen> {
               ),
             ),
             SizedBox(height: 25),
-            Image.asset(
-              "lib/UI/assets/Images/profile.png",
-              height: 100,
+            Container(
+
+              decoration: BoxDecoration(
+                  border: Border.all(
+                    width: 2,
+                    color: Colors.white,
+                  ),
+                  borderRadius: BorderRadius.all(Radius.circular(200))
+              ),
               width: 100,
+              height: 100,
+              child: ClipRRect(
+                borderRadius: BorderRadius.all(Radius.circular(200),
+
+
+
+                ),
+                child:  userInfos["data"]["picture"]==null?Image.asset("lib/UI/assets/Images/user.png",fit: BoxFit.fill,):Image.network("${userInfos["data"]["picture"]}",fit: BoxFit.fill,),
+              ),
             ),
             SizedBox(height: 8),
-             Text(
-              widget.full_name,
+             Text("${userInfos["data"]["prenomConsommateur"] } ${userInfos["data"]["nomConsommateur"]}",
               style: TextStyle(fontSize: 16,fontWeight: FontWeight.w600,fontFamily: 'Poppins', color: Colors.white,),
             ),
           ],
